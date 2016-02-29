@@ -24,9 +24,9 @@ public class EmbossPanel extends MyPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -8051107255963928066L;
-	private final JComboBox toptions;
-	private final JComboBox poptions;
-	private final JComboBox eoptions;
+	private final JComboBox<FactoryPropertiesItem> toptions;
+	private final JComboBox<FactoryPropertiesItem> poptions;
+	private final JComboBox<FactoryPropertiesItem> eoptions;
 	private final FactoryContext context;
 
 	private int tfactoryIndex;
@@ -41,9 +41,9 @@ public class EmbossPanel extends MyPanel {
 	public EmbossPanel(FactoryContext context) {
 		setLayout(new GridLayout(2, 1));
 		this.context = context;
-		toptions = new JComboBox();		
-		poptions = new JComboBox();
-		eoptions = new JComboBox();
+		toptions = new JComboBox<>();		
+		poptions = new JComboBox<>();
+		eoptions = new JComboBox<>();
 		
 		tlistener = new ActionListener() {
 			

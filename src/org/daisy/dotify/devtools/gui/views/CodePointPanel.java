@@ -36,13 +36,13 @@ public class CodePointPanel extends JPanel implements StringFormatterResult {
 	JTextArea codeTextField;
 	// JLabel inputType;
 	JScrollPane codePanelScroll;
-	JList list;
+	JList<String> list;
 	// Create the listener list
     protected javax.swing.event.EventListenerList listenerList =
         new javax.swing.event.EventListenerList();
 
 	public CodePointPanel() {
-		list = new JList();
+		list = new JList<>();
 		// JPanel input = new JPanel();
         JPanel style = new JPanel();
         JPanel mode = new JPanel();

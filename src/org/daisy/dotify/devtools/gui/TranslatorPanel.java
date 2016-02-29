@@ -40,7 +40,7 @@ public class TranslatorPanel extends MyPanel {
 	private static final long serialVersionUID = -8051107255963928066L;
 	private final JTextArea textField;
 	private final JTextArea outputField;
-	private final JComboBox options;
+	private final JComboBox<FactoryPropertiesItem> options;
 	private final ActionListener listener;
 	private final FactoryContext context;
 
@@ -83,7 +83,7 @@ public class TranslatorPanel extends MyPanel {
 
 		});
 		
-		options = new JComboBox();
+		options = new JComboBox<>();
 		listener = new ActionListener() {
 			
 			@Override

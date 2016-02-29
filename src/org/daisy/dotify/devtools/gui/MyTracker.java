@@ -6,7 +6,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
-public class MyTracker<T> extends ServiceTracker {
+public class MyTracker<T> extends ServiceTracker<T, T> {
 	private final HashSet<T> list;
 	
 	public MyTracker(BundleContext context, String name) {
@@ -15,9 +15,8 @@ public class MyTracker<T> extends ServiceTracker {
 	}
 	
 	@Override
-	public Object addingService(ServiceReference reference) {
-		@SuppressWarnings("unchecked")
-		T f = (T) context.getService(reference);
+	public T addingService(ServiceReference<T> reference) {
+		T f = context.getService(reference);
 		list.add(f);
 		return super.addingService(reference);
 	}
@@ -33,11 +32,10 @@ public class MyTracker<T> extends ServiceTracker {
 	public int size() {
 		return list.size();
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
-	public void removedService(ServiceReference reference, Object service) {
-		list.remove((T) service);
+	public void removedService(ServiceReference<T> reference, T service) {
+		list.remove(service);
 		super.removedService(reference, service);
 	}
 

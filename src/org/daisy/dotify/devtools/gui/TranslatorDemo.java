@@ -45,7 +45,7 @@ public class TranslatorDemo extends JPanel {
 	final JTextArea braillePanel;
 	final JScrollPane braille2PanelScroll;
 	final JTextArea braille2Panel;
-	final JComboBox tableSelect;
+	final JComboBox<TableWrapper> tableSelect;
 	final JCheckBox hyphenate;
 	final JCheckBox translate;
 	final JTextField limitBox;
@@ -69,7 +69,7 @@ public class TranslatorDemo extends JPanel {
 		this.braillePanelScroll = new JScrollPane(braillePanel);
 		this.braille2Panel = new JTextArea(10, 40);
 		this.braille2PanelScroll = new JScrollPane(braille2Panel);
-		this.tableSelect = new JComboBox();
+		this.tableSelect = new JComboBox<>();
 		this.hyphenate = new JCheckBox("Hyphenate");
 		this.translate = new JCheckBox("As text");
 		this.userPrefs = Preferences.userNodeForPackage(TranslatorDemo.class);
@@ -313,7 +313,7 @@ mainLayout.createParallelGroup(Alignment.CENTER, false)
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() instanceof JComboBox) {
-				JComboBox box = (JComboBox) e.getSource();
+				JComboBox<?> box = (JComboBox<?>) e.getSource();
 				Object o = box.getSelectedItem();
 				if (o instanceof TableWrapper) {
 					TableWrapper tr = (TableWrapper) box.getSelectedItem();
