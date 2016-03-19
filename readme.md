@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/brailleapps/dotify.devtools.gui.svg?branch=master)](https://travis-ci.org/brailleapps/dotify.devtools.gui)
+
 # Introduction #
 The dotify.devtools.gui project in the code repository contains a GUI for testing various Dotify components in both an OSGi and an SPI environment.
 
