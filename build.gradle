@@ -54,7 +54,8 @@ jar {
 
 repositories {
     mavenCentral()
-    mavenLocal()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    //mavenLocal()
 }
 
 dependencies {
@@ -63,7 +64,7 @@ dependencies {
 	compile 'org.daisy.dotify:dotify.api:2.2.0'
 	compile 'org.daisy.dotify:dotify.devtools:1.0.0-SNAPSHOT'
 	runtime group: group, name:'dotify.hyphenator.impl', version:'2.0.1'
-	runtime group: group, name:'dotify.formatter.impl', version:'2.1.0-SNAPSHOT'
+	runtime group: group, name:'dotify.formatter.impl', version:'2.1.0'
 	runtime group: group, name:'dotify.text.impl', version:'2.0.0'
 	runtime group: group, name:'dotify.translator.impl', version:'2.1.0'
 	
