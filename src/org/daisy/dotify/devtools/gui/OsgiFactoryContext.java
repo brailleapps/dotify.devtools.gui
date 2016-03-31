@@ -10,6 +10,7 @@ import org.daisy.dotify.api.text.Integer2TextFactoryMakerService;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMakerService;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
 
 public class OsgiFactoryContext implements FactoryContext {
 	private TranslatorTracker tracker;
@@ -21,6 +22,7 @@ public class OsgiFactoryContext implements FactoryContext {
 	private HyphTracker htracker;
 	private FormatterTracker ftracker;
 	private WriterTracker wtracker;
+	private BundleContext context;
 
 	public void openTracking(BundleContext context) {
 		tracker = new TranslatorTracker(context);
@@ -41,6 +43,7 @@ public class OsgiFactoryContext implements FactoryContext {
 		ftracker.open();
 		wtracker = new WriterTracker(context);
 		wtracker.open();
+		this.context = context;
 	}
 
 	public void closeTracking() {
@@ -98,6 +101,17 @@ public class OsgiFactoryContext implements FactoryContext {
 	@Override
 	public PagedMediaWriterFactoryMakerService getPagedMediaWriterFactoryService() {
 		return wtracker.get();
+	}
+
+	@Override
+	public void stop() {
+		if (context!=null) {
+			try {
+				context.getBundle().stop();
+			} catch (BundleException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

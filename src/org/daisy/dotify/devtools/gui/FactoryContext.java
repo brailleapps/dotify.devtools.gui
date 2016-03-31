@@ -21,5 +21,6 @@ public interface FactoryContext {
 	public HyphenatorFactoryMakerService getHyphenatorFactoryMakerService();
 	public FormatterEngineFactoryService getFormatterEngineFactoryService();
 	public PagedMediaWriterFactoryMakerService getPagedMediaWriterFactoryService();
+	public void stop();
 
 }

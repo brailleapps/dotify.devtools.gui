@@ -112,4 +112,8 @@ public class SpiFactoryContext implements FactoryContext {
 		}
 		return instance;
 	}
+
+	@Override
+	public void stop() {
+	}
 }

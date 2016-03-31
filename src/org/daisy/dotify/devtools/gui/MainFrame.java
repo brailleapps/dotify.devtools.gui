@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.util.ArrayList;
@@ -32,10 +33,16 @@ public class MainFrame extends JFrame {
 	final TranslatorPanel panel3;
 	final EmbossPanel panel6;
 	
-	public MainFrame(String title, FactoryContext context) {
+	public MainFrame(String title, final FactoryContext context) {
 		//getContentPane().set
 		super(title);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				context.stop();
+				System.exit(0);
+			}
+		});
 		setLayout(new BorderLayout());
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth()*0.5;
