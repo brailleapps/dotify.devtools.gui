@@ -84,7 +84,7 @@ buildscript {
     	mavenCentral()
     	mavenLocal()
     }
-    dependencies { classpath group: "org.dm.gradle", name: "gradle-bundle-plugin", version: "0.6.4" }
+    dependencies { classpath group: "org.dm.gradle", name: "gradle-bundle-plugin", version: "0.8.5" }
 }
 
 task runOSGi(type: JavaExec, dependsOn: 'installDist') {
@@ -111,7 +111,10 @@ installDist.dependsOn('jar')
 distributions {
 	main {
 		contents {
-			from (configurations.runtime+jar.outputs.files.getFiles()) {
+			from (configurations.runtime) {
+				into 'bundles'
+			}
+			from (jar.outputs.files.getFiles()) {
 				into 'bundles'
 			}
 			from (configurations.launcher) {
@@ -122,5 +125,5 @@ distributions {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.11'
+    gradleVersion = '3.0'
 }
