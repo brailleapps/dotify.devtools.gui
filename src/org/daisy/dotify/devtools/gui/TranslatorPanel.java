@@ -14,7 +14,6 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 import javax.swing.JComboBox;
@@ -24,7 +23,6 @@ import javax.swing.JTextArea;
 import org.daisy.braille.api.factory.FactoryProperties;
 import org.daisy.braille.api.factory.FactoryPropertiesComparator;
 import org.daisy.braille.api.table.BrailleConverter;
-import org.daisy.braille.api.table.Table;
 import org.daisy.braille.api.table.TableCatalogService;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactory;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;
@@ -89,7 +87,7 @@ public class TranslatorPanel extends MyPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				FactoryProperties tableFactory = ((FactoryPropertiesItem)options.getSelectedItem()).getFactoryProperties();
-				bc = newConverter(tableFactory);
+				bc = context.newBrailleConverter(tableFactory.getIdentifier());
 				factoryIndex = options.getSelectedIndex();
 				updateResult();
 			}
@@ -169,23 +167,6 @@ public class TranslatorPanel extends MyPanel {
 				}
 			}
 		}
-	}
-	
-	private BrailleConverter newConverter(FactoryProperties fpp) {
-		TableCatalogService tt = context.getTableCatalogService();
-		if (tt != null) {
-			if (fpp==null) {
-				Collection<FactoryProperties> fp = tt.list();
-				if (fp.size()>0) {
-					fpp = fp.iterator().next();									
-				}
-			}
-			if (fpp!=null) {
-				Table ttt = tt.newTable(fpp.getIdentifier());
-				return ttt.newBrailleConverter();
-			}							
-		}
-		return null;
 	}
 
 }

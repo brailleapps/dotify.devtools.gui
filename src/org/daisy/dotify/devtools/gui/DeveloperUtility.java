@@ -29,7 +29,7 @@ public class DeveloperUtility extends javax.swing.JFrame {
 
 		JTabbedPane tabbedPane = new JTabbedPane();
 
-		JComponent panel2 = new TranslatorDemo(new SpiFactoryContext());
+		TranslatorDemo panel2 = new TranslatorDemo(new SpiFactoryContext());
 		tabbedPane.addTab("Translator", null, panel2, "Translate into braille");
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_2);
 
@@ -37,6 +37,8 @@ public class DeveloperUtility extends javax.swing.JFrame {
         //Display the window.
         pack();
         setLocationRelativeTo(null);
+        panel2.updateTableList();
+        panel2.setTargetLocale("sv-SE");
     }
 
     public static void main(String[] args) {

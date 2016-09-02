@@ -11,8 +11,8 @@ apply plugin: "org.dm.bundle"
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
 javadoc.options.encoding = 'UTF-8'
-sourceCompatibility = '1.7'
-targetCompatibility = '1.7'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 
 group = "org.daisy.dotify"
 version = "1.0-SNAPSHOT"

@@ -31,6 +31,7 @@ public class MainFrame extends JFrame {
 	
 	final JTabbedPane pane;
 	final TranslatorPanel panel3;
+	final TranslatorDemo panel3b;
 	final EmbossPanel panel6;
 	
 	public MainFrame(String title, final FactoryContext context) {
@@ -54,6 +55,7 @@ public class MainFrame extends JFrame {
 		Int2TextPanel panel1 = new Int2TextPanel(context);
 		HyphPanel panel2 = new HyphPanel(context);
 		panel3 = new TranslatorPanel(context);
+		panel3b = new TranslatorDemo(context);
 		FormatterPanel panel4 = new FormatterPanel(context);
 		ValidatorPanel panel5 = new ValidatorPanel(context);
 		panel6 = new EmbossPanel(context);
@@ -75,6 +77,7 @@ public class MainFrame extends JFrame {
 		addPanel("Numbers", pane, panel1);
 		addPanel("Hyphenation", pane, panel2);
 		addPanel("Translation", pane, panel3);
+		addPanel("Translation2", pane, panel3b);
 		addPanel("Formatter", pane, panel4);
 		addPanel("Validator", pane, panel5);
 		addPanel("Emboss", pane, panel6);
@@ -116,6 +119,8 @@ public class MainFrame extends JFrame {
 			panel6.updateLists();
 		} else if (pane.getSelectedComponent()==panel3) {
 			panel3.updateTableList();
+		} else if (pane.getSelectedComponent()==panel3b) {
+			panel3b.updateTableList();
 		}
 	}
 	
