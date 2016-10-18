@@ -16,7 +16,7 @@ import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMakerService;
 
 public class SpiFactoryContext implements FactoryContext {
-	private final static Logger logger = Logger.getLogger(SpiFactoryContext.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(SpiFactoryContext.class.getCanonicalName());
 	private EmbosserCatalogService ecservice;
 	private PaperCatalogService pcservice;
 	private TableCatalogService tcservice;

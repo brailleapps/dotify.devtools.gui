@@ -40,8 +40,8 @@ import org.daisy.dotify.api.translator.TranslatorConfigurationException;
 
 
 public class TranslatorDemo extends MyPanel {
-	private final static String USER_PREFS_KEY_TABLE = "tableIdentifier";
-	final static String DEFAULT_LIMIT = "30";
+	private static final String USER_PREFS_KEY_TABLE = "tableIdentifier";
+	static final String DEFAULT_LIMIT = "30";
 	final JScrollPane textPanelScroll;
 	final JTextArea textPanel;
 	final JScrollPane braillePanelScroll;

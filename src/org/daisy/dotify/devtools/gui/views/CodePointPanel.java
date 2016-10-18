@@ -26,10 +26,10 @@ public class CodePointPanel extends JPanel implements StringFormatterResult {
 	 * 
 	 */
 	private static final long serialVersionUID = 2155201906265896180L;
-	private final static String xmlStr = "XML entity";
-	private final static String commaStr = "Comma separated";
-	private final static String hexStr = "Hex";
-	private final static String decimalStr = "Decimal";
+	private static final String xmlStr = "XML entity";
+	private static final String commaStr = "Comma separated";
+	private static final String hexStr = "Hex";
+	private static final String decimalStr = "Decimal";
 
 	JRadioButton s1, s2, s3, m1, m2;// , i1, i2;
 	
