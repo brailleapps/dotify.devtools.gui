@@ -9,6 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import javax.swing.JComponent;
@@ -17,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -112,6 +114,28 @@ public class MainFrame extends JFrame {
 		add(pane, BorderLayout.CENTER);
 		pack();
 		setLocationRelativeTo(null);
+		new SwingWorker<Void, Void>() {
+			@Override
+			protected Void doInBackground() throws Exception {
+				try {
+					for (int i=0; i<100 && !context.isStarted(); i++) {
+						Thread.sleep(100);
+					}
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+				return null;
+			}
+
+			@Override
+			protected void done() {
+				super.done();
+				if (context.isStarted() && "".equals(loc.getText())) {
+					loc.setText(Locale.getDefault().toLanguageTag());
+					updateLocale();
+				}
+			}
+		}.execute();
 	}
 	
 	private void updateSelectedPane() {

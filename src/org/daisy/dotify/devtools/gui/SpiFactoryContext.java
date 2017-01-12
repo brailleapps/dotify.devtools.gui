@@ -116,4 +116,9 @@ public class SpiFactoryContext implements FactoryContext {
 	@Override
 	public void stop() {
 	}
+
+	@Override
+	public boolean isStarted() {
+		return true;
+	}
 }

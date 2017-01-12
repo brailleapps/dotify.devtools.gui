@@ -9,6 +9,7 @@ import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMakerService;
 import org.daisy.dotify.api.text.Integer2TextFactoryMakerService;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMakerService;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 
@@ -112,6 +113,11 @@ public class OsgiFactoryContext implements FactoryContext {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@Override
+	public boolean isStarted() {
+		return context!=null && context.getBundle().getState()==Bundle.ACTIVE;
 	}
 
 }
