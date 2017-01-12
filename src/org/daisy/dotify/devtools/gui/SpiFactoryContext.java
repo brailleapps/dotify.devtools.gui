@@ -87,9 +87,9 @@ public class SpiFactoryContext implements FactoryContext {
 	public FormatterEngineFactoryService getFormatterEngineFactoryService() {
 		if (fefservice==null) {
 			fefservice = ServiceLoader.load(FormatterEngineFactoryService.class).iterator().next();
-			
+			fefservice.setCreatedWithSPI();
 		}
-		return null;
+		return fefservice;
 	}
 
 	@Override
