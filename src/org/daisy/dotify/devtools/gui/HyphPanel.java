@@ -53,27 +53,25 @@ public class HyphPanel extends MyPanel {
 	
 	@Override
 	protected void updateResult() {
-		if (getTargetLocale()==null || getTargetLocale().equals("")) {
+		if (textField.getText().equals("")) {
+			outputField.setText("");
+		} else if (getTargetLocale()==null || getTargetLocale().equals("")) {
 			outputField.setText("No locale selected");
 		} else {
 			HyphenatorFactoryMakerService t = context.getHyphenatorFactoryMakerService();
 			if (t == null) {
 				outputField.setText("No conversion");
 			} else {
-				if (textField.getText().equals("")) {
-					outputField.setText("");
-				} else {
-					try {
-						outputField.setText(t.newHyphenator(getTargetLocale()).hyphenate(textField.getText()));
-					} catch (HyphenatorConfigurationException e1) {
-						outputField.setText("Locale not supported: " + getTargetLocale() + "\n");
-						ArrayList<String> locs = new ArrayList<String>();
-						locs.addAll(t.listLocales());
-						Collections.sort(locs);
-						outputField.append("Supported values ("+locs.size()+"): \n");
-						for (String s : locs) {
-							outputField.append(s+"\n");
-						}
+				try {
+					outputField.setText(t.newHyphenator(getTargetLocale()).hyphenate(textField.getText()));
+				} catch (HyphenatorConfigurationException e1) {
+					outputField.setText("Locale not supported: " + getTargetLocale() + "\n");
+					ArrayList<String> locs = new ArrayList<String>();
+					locs.addAll(t.listLocales());
+					Collections.sort(locs);
+					outputField.append("Supported values ("+locs.size()+"): \n");
+					for (String s : locs) {
+						outputField.append(s+"\n");
 					}
 				}
 			}

@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.daisy.dotify.api.engine.FormatterEngine;
@@ -75,41 +76,48 @@ public class FormatterPanel extends MyPanel {
 
 	@Override
 	protected void updateResult() {
-		if (getTargetLocale()==null || getTargetLocale().equals("")) {
+		if (input==null) {
+			outputField.setText("No file selected.");
+			chooseFile.setText("Choose file...");
+		} else if (getTargetLocale()==null || getTargetLocale().equals("")) {
 			outputField.setText("No locale selected");
+		} else if (!input.isFile()) { 
+			outputField.setText("File doesn't exist " + input);
 		} else {
-				FormatterEngineFactoryService t = context.getFormatterEngineFactoryService();
-				PagedMediaWriterFactoryMakerService w = context.getPagedMediaWriterFactoryService();
-				if (t == null) {
-					outputField.setText("No formatter detected");
-				} if (w == null) {
-					outputField.setText("No writer detected");
-				} else {
-					if (input==null) {
-						outputField.setText("No file selected.");
-						chooseFile.setText("Choose file...");
-					} else if (!input.isFile()) { 
-						outputField.setText("File doesn't exist " + input);
-					} else {
-						try {
+			FormatterEngineFactoryService t = context.getFormatterEngineFactoryService();
+			PagedMediaWriterFactoryMakerService w = context.getPagedMediaWriterFactoryService();
+			if (t == null) {
+				outputField.setText("No formatter detected");
+			} else if (w == null) {
+				outputField.setText("No writer detected");
+			} else {
+				outputField.setText("Converting " + input + "...");
+				try {
+					new SwingWorker<Void, Void>() {
+						File out;
+
+						@Override
+						protected Void doInBackground() throws Exception {
 							PagedMediaWriter pw = w.newPagedMediaWriter(MediaTypes.PEF_MEDIA_TYPE);
 							FormatterEngine e = t.newFormatterEngine(getTargetLocale(), BrailleTranslatorFactory.MODE_UNCONTRACTED, pw);
-							File out = new File(input.getParentFile(), input.getName()+".pef");
+							out = new File(input.getParentFile(), input.getName()+".pef");
 						
 							e.convert(new FileInputStream(input), new FileOutputStream(out));
-							outputField.setText("Done! " + out);
-						} catch (FileNotFoundException e1) {
-							outputField.setText(e1.toString());
-						} catch (LayoutEngineException e1) {
-							e1.printStackTrace();
-							outputField.setText("Not supported");
-						} catch (PagedMediaWriterConfigurationException e1) {
-							e1.printStackTrace();
-							outputField.setText(e1.toString());
+							return null;
 						}
-					}
-				}
 
+						@Override
+						protected void done() {
+							outputField.setText("Done! " + out);
+							super.done();
+						}
+
+					}.execute();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					outputField.setText(e1.toString());
+				}
+			}
 		}
 	}
 

@@ -53,35 +53,31 @@ public class Int2TextPanel extends MyPanel {
 
 	@Override
 	protected void updateResult() {
-		if (getTargetLocale()==null || getTargetLocale().equals("")) {
+		if (textField.getText().equals("")) {
+			outputField.setText("");
+		} else if (getTargetLocale()==null || getTargetLocale().equals("")) {
 			outputField.setText("No locale selected");
 		} else {
-
-				Integer2TextFactoryMakerService t = context.getInteger2TextFactoryMakerService();
-				if (t == null) {
-					outputField.setText("No conversion");
-				} else {
-					if (textField.getText().equals("")) {
-						outputField.setText("");
-					} else {
-						try {
-							try {
-								outputField.setText(t.newInteger2Text(getTargetLocale()).intToText(Integer.parseInt(textField.getText())));
-							} catch (Integer2TextConfigurationException e1) {
-								outputField.setText("Locale not supported: " + getTargetLocale() + "\n");
-								outputField.append("Supported values:\n");
-								for (String s : t.listLocales()) {
-									outputField.append(s+"\n");
-								}
-							}
-						} catch (NumberFormatException e1) {
-							outputField.setText("Not a valid integer");
-						} catch (IntegerOutOfRange e1) {
-							outputField.setText("Value not in supported range.");
+			Integer2TextFactoryMakerService t = context.getInteger2TextFactoryMakerService();
+			if (t == null) {
+				outputField.setText("No conversion");
+			} else {
+				try {
+					try {
+						outputField.setText(t.newInteger2Text(getTargetLocale()).intToText(Integer.parseInt(textField.getText())));
+					} catch (Integer2TextConfigurationException e1) {
+						outputField.setText("Locale not supported: " + getTargetLocale() + "\n");
+						outputField.append("Supported values:\n");
+						for (String s : t.listLocales()) {
+							outputField.append(s+"\n");
 						}
 					}
+				} catch (NumberFormatException e1) {
+					outputField.setText("Not a valid integer");
+				} catch (IntegerOutOfRange e1) {
+					outputField.setText("Value not in supported range.");
 				}
-
+			}
 		}
 	}
 
