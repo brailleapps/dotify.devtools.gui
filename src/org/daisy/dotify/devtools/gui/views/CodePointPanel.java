@@ -19,7 +19,6 @@ import javax.swing.JTextArea;
 import org.daisy.dotify.devtools.converters.CodePointHelper;
 import org.daisy.dotify.devtools.converters.CodePointHelper.Mode;
 import org.daisy.dotify.devtools.converters.CodePointHelper.Style;
-import org.daisy.dotify.devtools.converters.UnicodeNames;
 
 public class CodePointPanel extends JPanel implements StringFormatterResult {
 	/**
@@ -214,7 +213,7 @@ public class CodePointPanel extends JPanel implements StringFormatterResult {
 		ArrayList<String> ret = new ArrayList<String>();
 		for (int offset = 0; offset < input.length();) {
 			codePoint = input.codePointAt(offset);
-			ret.add(UnicodeNames.getName(codePoint) + ", " + CodePointHelper.format("" + (char) codePoint, Style.COMMA, getSelectedMode()));
+			ret.add(Character.getName(codePoint) + ", " + CodePointHelper.format("" + (char) codePoint, Style.COMMA, getSelectedMode()));
 			offset += Character.charCount(codePoint);
 		}
 		list.setListData(ret.toArray(new String[] {}));
