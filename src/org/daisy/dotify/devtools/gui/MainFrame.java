@@ -59,6 +59,7 @@ public class MainFrame extends JFrame {
 		panel3 = new TranslatorPanel(context);
 		panel3b = new TranslatorDemo(context);
 		FormatterPanel panel4 = new FormatterPanel(context);
+		TaskSystemPanel panel4b = new TaskSystemPanel(context);
 		ValidatorPanel panel5 = new ValidatorPanel(context);
 		panel6 = new EmbossPanel(context);
 		
@@ -81,6 +82,7 @@ public class MainFrame extends JFrame {
 		addPanel("Translation", pane, panel3);
 		addPanel("Translation2", pane, panel3b);
 		addPanel("Formatter", pane, panel4);
+		addPanel("Task System", pane, panel4b);
 		addPanel("Validator", pane, panel5);
 		addPanel("Emboss", pane, panel6);
 		

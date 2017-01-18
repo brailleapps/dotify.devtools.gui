@@ -6,6 +6,8 @@ import org.daisy.braille.api.table.TableCatalogService;
 import org.daisy.braille.api.validator.ValidatorFactoryService;
 import org.daisy.dotify.api.engine.FormatterEngineFactoryService;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMakerService;
+import org.daisy.dotify.api.identity.IdentityProviderService;
+import org.daisy.dotify.api.tasks.TaskSystemFactoryMakerService;
 import org.daisy.dotify.api.text.Integer2TextFactoryMakerService;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMakerService;
@@ -22,6 +24,8 @@ public class OsgiFactoryContext implements FactoryContext {
 	private Int2TextTracker itracker;
 	private HyphTracker htracker;
 	private FormatterTracker ftracker;
+	private TaskSystemTracker tstracker;
+	private IdentityProviderTracker idtracker;
 	private WriterTracker wtracker;
 	private BundleContext context;
 
@@ -42,6 +46,10 @@ public class OsgiFactoryContext implements FactoryContext {
 		htracker.open();
 		ftracker = new FormatterTracker(context);
 		ftracker.open();
+		tstracker = new TaskSystemTracker(context);
+		tstracker.open();
+		idtracker = new IdentityProviderTracker(context);
+		idtracker.open();
 		wtracker = new WriterTracker(context);
 		wtracker.open();
 		this.context = context;
@@ -56,6 +64,8 @@ public class OsgiFactoryContext implements FactoryContext {
 		itracker.close();
 		htracker.close();
 		ftracker.close();
+		tstracker.close();
+		idtracker.close();
 		wtracker.close();
 	}
 
@@ -97,6 +107,17 @@ public class OsgiFactoryContext implements FactoryContext {
 	@Override
 	public FormatterEngineFactoryService getFormatterEngineFactoryService() {
 		return ftracker.get();
+	}
+	
+	@Override
+	public TaskSystemFactoryMakerService getTaskSystemFactoryMakerService() {
+		return tstracker.get();
+	}
+	
+
+	@Override
+	public IdentityProviderService getIdentityProviderService() {
+		return idtracker.get();
 	}
 
 	@Override
