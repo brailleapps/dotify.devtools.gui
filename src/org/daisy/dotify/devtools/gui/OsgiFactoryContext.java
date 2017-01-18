@@ -1,5 +1,8 @@
 package org.daisy.dotify.devtools.gui;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.daisy.braille.api.embosser.EmbosserCatalogService;
 import org.daisy.braille.api.paper.PaperCatalogService;
 import org.daisy.braille.api.table.TableCatalogService;
@@ -16,113 +19,96 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 
 public class OsgiFactoryContext implements FactoryContext {
-	private TranslatorTracker tracker;
-	private TableCatalogTracker tctracker;
-	private PaperCatalogTracker pctracker;
-	private EmbosserCatalogTracker ectracker;
-	private ValidatorTracker vtracker;
-	private Int2TextTracker itracker;
-	private HyphTracker htracker;
-	private FormatterTracker ftracker;
-	private TaskSystemTracker tstracker;
-	private IdentityProviderTracker idtracker;
-	private WriterTracker wtracker;
+	private final Map<Class<?>, MyTracker<?>> trackers;
 	private BundleContext context;
+	
+	public OsgiFactoryContext() {
+		this.trackers = new HashMap<>();
+	}
 
 	public void openTracking(BundleContext context) {
-		tracker = new TranslatorTracker(context);
-		tracker.open();
-		tctracker = new TableCatalogTracker(context);
-		tctracker.open();
-		pctracker = new PaperCatalogTracker(context);
-		pctracker.open();
-		ectracker = new EmbosserCatalogTracker(context);
-		ectracker.open();
-		vtracker = new ValidatorTracker(context);
-		vtracker.open();
-		itracker = new Int2TextTracker(context);
-		itracker.open();
-		htracker = new HyphTracker(context);
-		htracker.open();
-		ftracker = new FormatterTracker(context);
-		ftracker.open();
-		tstracker = new TaskSystemTracker(context);
-		tstracker.open();
-		idtracker = new IdentityProviderTracker(context);
-		idtracker.open();
-		wtracker = new WriterTracker(context);
-		wtracker.open();
+		putTracker(new TranslatorTracker(context));
+		putTracker(new TableCatalogTracker(context));
+		putTracker(new PaperCatalogTracker(context));
+		putTracker(new EmbosserCatalogTracker(context));
+		putTracker(new ValidatorTracker(context));
+		putTracker(new Int2TextTracker(context));
+		putTracker(new HyphTracker(context));
+		putTracker(new FormatterTracker(context));
+		putTracker(new TaskSystemTracker(context));
+		putTracker(new IdentityProviderTracker(context));
+		putTracker(new WriterTracker(context));
+		trackers.values().stream().forEach(e->e.open());
 		this.context = context;
 	}
 
 	public void closeTracking() {
-		tracker.close();
-		tctracker.close();
-		pctracker.close();
-		ectracker.close();
-		vtracker.close();
-		itracker.close();
-		htracker.close();
-		ftracker.close();
-		tstracker.close();
-		idtracker.close();
-		wtracker.close();
+		trackers.values().stream().forEach(e->e.close());
+	}
+	
+	private void putTracker(MyTracker<?> tracker) {
+		trackers.put(tracker.getClass(), tracker);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private <T> T getTracker(Class<T> clazz) {
+		return (T)trackers.get(clazz);
 	}
 
 	@Override
 	public EmbosserCatalogService getEmbosserCatalogService() {
-		return ectracker.get();
+		return getTracker(EmbosserCatalogTracker.class).get();
 	}
 
 	@Override
 	public PaperCatalogService getPaperCatalogService() {
-		return pctracker.get();
+		return getTracker(PaperCatalogTracker.class).get();
 	}
 
 	@Override
 	public TableCatalogService getTableCatalogService() {
-		return tctracker.get();
+		return getTracker(TableCatalogTracker.class).get();
 	}
 
 	@Override
 	public BrailleTranslatorFactoryMakerService getBrailleTranslatorFactoryMakerService() {
-		return tracker.get();
+		return getTracker(TranslatorTracker.class).get();
 	}
 
 	@Override
 	public ValidatorFactoryService getValidatorFactoryService() {
-		return vtracker.get();
+		return getTracker(ValidatorTracker.class).get();
 	}
 
 	@Override
 	public Integer2TextFactoryMakerService getInteger2TextFactoryMakerService() {
-		return itracker.get();
+		return getTracker(Int2TextTracker.class).get();
 	}
 
 	@Override
 	public HyphenatorFactoryMakerService getHyphenatorFactoryMakerService() {
-		return htracker.get();
+		return getTracker(HyphTracker.class).get();
 	}
 
 	@Override
 	public FormatterEngineFactoryService getFormatterEngineFactoryService() {
-		return ftracker.get();
+		return getTracker(FormatterTracker.class).get();
 	}
 	
 	@Override
 	public TaskSystemFactoryMakerService getTaskSystemFactoryMakerService() {
-		return tstracker.get();
+		return getTracker(TaskSystemTracker.class).get();
 	}
 	
 
 	@Override
 	public IdentityProviderService getIdentityProviderService() {
-		return idtracker.get();
+		return getTracker(IdentityProviderTracker.class).get();
 	}
 
 	@Override
 	public PagedMediaWriterFactoryMakerService getPagedMediaWriterFactoryService() {
-		return wtracker.get();
+		return getTracker(WriterTracker.class).get();
 	}
 
 	@Override

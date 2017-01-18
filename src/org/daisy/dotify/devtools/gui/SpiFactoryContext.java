@@ -1,6 +1,8 @@
 package org.daisy.dotify.devtools.gui;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,105 +21,113 @@ import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMakerService;
 
 public class SpiFactoryContext implements FactoryContext {
 	private static final Logger logger = Logger.getLogger(SpiFactoryContext.class.getCanonicalName());
-	private EmbosserCatalogService ecservice;
-	private PaperCatalogService pcservice;
-	private TableCatalogService tcservice;
-	private BrailleTranslatorFactoryMakerService btfservice;
-	private ValidatorFactoryService vfservice;
-	private Integer2TextFactoryMakerService i2tfservice;
-	private HyphenatorFactoryMakerService hfservice;
-	private FormatterEngineFactoryService fefservice;
-	private TaskSystemFactoryMakerService tsservice;
-	private IdentityProviderService idservice;
-	private PagedMediaWriterFactoryMakerService pmwfservice;
+	private final Map<Class<?>, Object> services;
 	
+	public SpiFactoryContext() {
+		this.services = new HashMap<>();
+	}
+	
+	private void putService(Object service) {
+		services.put(service.getClass(), service);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private <T> T getService(Class<T> clazz) {
+		return (T)services.get(clazz);
+	}
+	
+	private <T> T getService(Class<T> clazz, Creator<T> creator) {
+		T ret = getService(clazz);
+		if (ret==null) {
+			ret = creator.create();
+			putService(ret);
+		}
+		return ret;
+	}
+	
+	private static interface Creator<T> {
+		public T create();
+	}
+
 	@Override
 	public EmbosserCatalogService getEmbosserCatalogService() {
-		if (ecservice==null) {
-			ecservice = invokeStatic("org.daisy.braille.consumer.embosser.EmbosserCatalog", "newInstance");
-		}
-		return ecservice;
+		return getService(
+				EmbosserCatalogService.class,
+				()->invokeStatic("org.daisy.braille.consumer.embosser.EmbosserCatalog", "newInstance"));
 	}
 
 	@Override
 	public PaperCatalogService getPaperCatalogService() {
-		if (pcservice==null) {
-			pcservice = invokeStatic("org.daisy.braille.consumer.paper.PaperCatalog", "newInstance");
-		}
-		return pcservice;
+		return getService(
+				PaperCatalogService.class,
+				()->invokeStatic("org.daisy.braille.consumer.paper.PaperCatalog", "newInstance"));
 	}
 
 	@Override
 	public TableCatalogService getTableCatalogService() {
-		if (tcservice==null) {
-			tcservice = invokeStatic("org.daisy.braille.consumer.table.TableCatalog", "newInstance");
-		}
-		return tcservice;
+		return getService(
+				TableCatalogService.class,
+				()->invokeStatic("org.daisy.braille.consumer.table.TableCatalog", "newInstance"));
 	}
 
 	@Override
 	public BrailleTranslatorFactoryMakerService getBrailleTranslatorFactoryMakerService() {
-		if (btfservice==null) {
-			btfservice = invokeStatic("org.daisy.dotify.consumer.translator.BrailleTranslatorFactoryMaker", "newInstance");
-		}
-		return btfservice;
+		return getService(
+				BrailleTranslatorFactoryMakerService.class,
+				()->invokeStatic("org.daisy.dotify.consumer.translator.BrailleTranslatorFactoryMaker", "newInstance"));
 	}
 
 	@Override
 	public ValidatorFactoryService getValidatorFactoryService() {
-		if (vfservice==null) {
-			vfservice = invokeStatic("org.daisy.braille.consumer.validator.ValidatorFactory", "newInstance");
-		}
-		return vfservice;
+		return getService(
+				ValidatorFactoryService.class,
+				()->invokeStatic("org.daisy.braille.consumer.validator.ValidatorFactory", "newInstance"));
 	}
 
 	@Override
 	public Integer2TextFactoryMakerService getInteger2TextFactoryMakerService() {
-		if (i2tfservice==null) {
-			i2tfservice = invokeStatic("org.daisy.dotify.consumer.text.Integer2TextFactoryMaker", "newInstance");
-		}
-		return i2tfservice;
+		return getService(
+				Integer2TextFactoryMakerService.class,
+				()->invokeStatic("org.daisy.dotify.consumer.text.Integer2TextFactoryMaker", "newInstance"));
 	}
 
 	@Override
 	public HyphenatorFactoryMakerService getHyphenatorFactoryMakerService() {
-		if (hfservice==null) {
-			hfservice = invokeStatic("org.daisy.dotify.consumer.hyphenator.HyphenatorFactoryMaker", "newInstance");
-		}
-		return hfservice;
+		return getService(
+				HyphenatorFactoryMakerService.class,
+				()->invokeStatic("org.daisy.dotify.consumer.hyphenator.HyphenatorFactoryMaker", "newInstance"));
 	}
 
 	@Override
 	public FormatterEngineFactoryService getFormatterEngineFactoryService() {
-		if (fefservice==null) {
-			fefservice = ServiceLoader.load(FormatterEngineFactoryService.class).iterator().next();
-			fefservice.setCreatedWithSPI();
-		}
-		return fefservice;
+		return getService(
+				FormatterEngineFactoryService.class,
+				()->{
+					FormatterEngineFactoryService ret = ServiceLoader.load(FormatterEngineFactoryService.class).iterator().next();
+					ret.setCreatedWithSPI();
+					return ret;
+			});
 	}
 
 	@Override
 	public TaskSystemFactoryMakerService getTaskSystemFactoryMakerService() {
-		if (tsservice==null) {
-			tsservice = invokeStatic("org.daisy.dotify.consumer.tasks.TaskSystemFactoryMaker", "newInstance");
-		}
-		return tsservice;
+		return getService(
+				TaskSystemFactoryMakerService.class,
+				()->invokeStatic("org.daisy.dotify.consumer.tasks.TaskSystemFactoryMaker", "newInstance"));
 	}
 
 	@Override
 	public IdentityProviderService getIdentityProviderService() {
-		if (idservice==null) {
-			idservice = invokeStatic("org.daisy.dotify.consumer.identity.IdentityProvider", "newInstance");
-		}
-		return idservice;
+		return getService(
+				IdentityProviderService.class,
+				()->invokeStatic("org.daisy.dotify.consumer.identity.IdentityProvider", "newInstance"));
 	}
 
 	@Override
 	public PagedMediaWriterFactoryMakerService getPagedMediaWriterFactoryService() {
-		if (pmwfservice==null) {
-			pmwfservice = invokeStatic("org.daisy.dotify.consumer.writer.PagedMediaWriterFactoryMaker", "newInstance");
-		}
-		return pmwfservice;
+		return getService(
+				PagedMediaWriterFactoryMakerService.class, 
+				()->invokeStatic("org.daisy.dotify.consumer.writer.PagedMediaWriterFactoryMaker", "newInstance"));
 	}
 
 	@SuppressWarnings("unchecked")
