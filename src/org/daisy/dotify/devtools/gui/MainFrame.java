@@ -77,8 +77,11 @@ public class MainFrame extends JFrame {
 		pane.addTab("Code Points", null, panel11, "Convert characters to codepoints");
 		pane.setMnemonicAt(0, KeyEvent.VK_1);
 		
+		ExpressionPanel panel7 = new ExpressionPanel(context);
+		
 		addPanel("Numbers", pane, panel1);
 		addPanel("Hyphenation", pane, panel2);
+		addPanel("Expression", pane, panel7);
 		addPanel("Translation", pane, panel3);
 		addPanel("Translation2", pane, panel3b);
 		addPanel("Formatter", pane, panel4);

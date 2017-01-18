@@ -10,6 +10,7 @@ import org.daisy.braille.api.validator.ValidatorFactoryService;
 import org.daisy.dotify.api.engine.FormatterEngineFactoryService;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMakerService;
 import org.daisy.dotify.api.identity.IdentityProviderService;
+import org.daisy.dotify.api.obfl.ExpressionFactory;
 import org.daisy.dotify.api.tasks.TaskSystemFactoryMakerService;
 import org.daisy.dotify.api.text.Integer2TextFactoryMakerService;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;
@@ -34,6 +35,7 @@ public class OsgiFactoryContext implements FactoryContext {
 		putTracker(new ValidatorTracker(context));
 		putTracker(new Int2TextTracker(context));
 		putTracker(new HyphTracker(context));
+		putTracker(new ExpressionTracker(context));
 		putTracker(new FormatterTracker(context));
 		putTracker(new TaskSystemTracker(context));
 		putTracker(new IdentityProviderTracker(context));
@@ -88,6 +90,11 @@ public class OsgiFactoryContext implements FactoryContext {
 	@Override
 	public HyphenatorFactoryMakerService getHyphenatorFactoryMakerService() {
 		return getTracker(HyphTracker.class).get();
+	}
+
+	@Override
+	public ExpressionFactory getExpressionFactory() {
+		return getTracker(ExpressionTracker.class).get();
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import org.daisy.braille.api.validator.ValidatorFactoryService;
 import org.daisy.dotify.api.engine.FormatterEngineFactoryService;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMakerService;
 import org.daisy.dotify.api.identity.IdentityProviderService;
+import org.daisy.dotify.api.obfl.ExpressionFactory;
 import org.daisy.dotify.api.tasks.TaskSystemFactoryMakerService;
 import org.daisy.dotify.api.text.Integer2TextFactoryMakerService;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;
@@ -99,6 +100,17 @@ public class SpiFactoryContext implements FactoryContext {
 	}
 
 	@Override
+	public ExpressionFactory getExpressionFactory() {
+		return getService(
+				ExpressionFactory.class,
+				()->{
+					ExpressionFactory ret = ServiceLoader.load(ExpressionFactory.class).iterator().next();
+					ret.setCreatedWithSPI();
+					return ret;
+			});
+	}
+
+	@Override
 	public FormatterEngineFactoryService getFormatterEngineFactoryService() {
 		return getService(
 				FormatterEngineFactoryService.class,
@@ -151,4 +163,5 @@ public class SpiFactoryContext implements FactoryContext {
 	public boolean isStarted() {
 		return true;
 	}
+
 }
