@@ -59,7 +59,10 @@ repositories {
 }
 
 dependencies {
-	compile group: 'org.daisy.braille', name:'braille-utils.ui', version:'2.0.0-SNAPSHOT'
+	compile group: 'org.daisy.braille', name:'braille-utils.api', version:'3.0.0'
+	compile group: 'org.daisy.braille', name:'braille-utils.impl', version:'3.0.0'
+	compile group: 'org.daisy.braille', name:'braille-utils.pef-tools', version:'2.2.0'
+	
 	
 	compile 'org.daisy.dotify:dotify.api:3.1.0'
 	compile 'org.daisy.dotify:dotify.task-api:3.0.0'
