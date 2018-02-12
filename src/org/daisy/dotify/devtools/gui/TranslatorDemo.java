@@ -26,10 +26,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
-import org.daisy.braille.api.factory.FactoryProperties;
-import org.daisy.braille.api.factory.FactoryPropertiesComparator;
-import org.daisy.braille.api.table.BrailleConverter;
-import org.daisy.braille.api.table.TableCatalogService;
+import org.daisy.braille.utils.api.factory.FactoryProperties;
+import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator;
+import org.daisy.braille.utils.api.table.BrailleConverter;
+import org.daisy.braille.utils.api.table.TableCatalogService;
 import org.daisy.dotify.api.translator.BrailleTranslator;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactory;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;

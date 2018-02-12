@@ -4,13 +4,17 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.daisy.braille.api.embosser.EmbosserCatalogService;
-import org.daisy.braille.api.paper.PaperCatalogService;
-import org.daisy.braille.api.table.TableCatalogService;
-import org.daisy.braille.api.validator.ValidatorFactoryService;
+import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
+import org.daisy.braille.utils.api.embosser.EmbosserCatalogService;
+import org.daisy.braille.utils.api.paper.PaperCatalog;
+import org.daisy.braille.utils.api.paper.PaperCatalogService;
+import org.daisy.braille.utils.api.table.TableCatalog;
+import org.daisy.braille.utils.api.table.TableCatalogService;
+import org.daisy.braille.utils.api.validator.ValidatorFactoryService;
 import org.daisy.dotify.api.engine.FormatterEngineFactoryService;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMakerService;
 import org.daisy.dotify.api.identity.IdentityProviderService;
@@ -37,38 +41,34 @@ public class SpiFactoryContext implements FactoryContext {
 		return (T)services.get(clazz);
 	}
 	
-	private <T> T getService(Class<T> clazz, Creator<T> creator) {
+	private <T> T getService(Class<T> clazz, Supplier<T> creator) {
 		T ret = getService(clazz);
 		if (ret==null) {
-			ret = creator.create();
+			ret = creator.get();
 			putService(ret);
 		}
 		return ret;
-	}
-	
-	private static interface Creator<T> {
-		public T create();
 	}
 
 	@Override
 	public EmbosserCatalogService getEmbosserCatalogService() {
 		return getService(
 				EmbosserCatalogService.class,
-				()->invokeStatic("org.daisy.braille.consumer.embosser.EmbosserCatalog", "newInstance"));
+				()->EmbosserCatalog.newInstance());
 	}
 
 	@Override
 	public PaperCatalogService getPaperCatalogService() {
 		return getService(
 				PaperCatalogService.class,
-				()->invokeStatic("org.daisy.braille.consumer.paper.PaperCatalog", "newInstance"));
+				()->PaperCatalog.newInstance());
 	}
 
 	@Override
 	public TableCatalogService getTableCatalogService() {
 		return getService(
 				TableCatalogService.class,
-				()->invokeStatic("org.daisy.braille.consumer.table.TableCatalog", "newInstance"));
+				()->TableCatalog.newInstance());
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class SpiFactoryContext implements FactoryContext {
 	public ValidatorFactoryService getValidatorFactoryService() {
 		return getService(
 				ValidatorFactoryService.class,
-				()->invokeStatic("org.daisy.braille.consumer.validator.ValidatorFactory", "newInstance"));
+				()->invokeStatic("org.daisy.braille.utils.api.validator.ValidatorFactory", "newInstance"));
 	}
 
 	@Override

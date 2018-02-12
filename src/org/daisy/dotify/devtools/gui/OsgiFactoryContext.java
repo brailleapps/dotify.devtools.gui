@@ -3,10 +3,10 @@ package org.daisy.dotify.devtools.gui;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.daisy.braille.api.embosser.EmbosserCatalogService;
-import org.daisy.braille.api.paper.PaperCatalogService;
-import org.daisy.braille.api.table.TableCatalogService;
-import org.daisy.braille.api.validator.ValidatorFactoryService;
+import org.daisy.braille.utils.api.embosser.EmbosserCatalogService;
+import org.daisy.braille.utils.api.paper.PaperCatalogService;
+import org.daisy.braille.utils.api.table.TableCatalogService;
+import org.daisy.braille.utils.api.validator.ValidatorFactoryService;
 import org.daisy.dotify.api.engine.FormatterEngineFactoryService;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMakerService;
 import org.daisy.dotify.api.identity.IdentityProviderService;
