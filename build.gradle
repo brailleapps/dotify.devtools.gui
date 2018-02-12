@@ -65,18 +65,18 @@ dependencies {
 	compile group: 'org.daisy.braille', name:'braille-utils.pef-tools', version:'3.0.1'
 	
 	
-	compile 'org.daisy.dotify:dotify.api:3.1.0'
-	compile 'org.daisy.streamline:streamline-api:0.2.0'
-	compile ('org.daisy.streamline:streamline-engine:0.2.0') {
+	compile 'org.daisy.dotify:dotify.api:4.0.0'
+	compile 'org.daisy.streamline:streamline-api:1.0.0'
+	compile ('org.daisy.streamline:streamline-engine:1.0.0') {
 		exclude module: 'streamline-api'
 	}
 	
 	compile 'org.daisy.dotify:dotify.devtools:1.0.0-SNAPSHOT'
-	runtime group: group, name:'dotify.hyphenator.impl', version:'3.0.0'
-	runtime group: group, name:'dotify.formatter.impl', version:'3.1.0'
-	runtime group: group, name:'dotify.text.impl', version:'3.0.0'
-	runtime group: group, name:'dotify.translator.impl', version:'3.0.0'
-	runtime ('org.daisy.dotify:dotify.task.impl:3.0.0') {
+	runtime group: group, name:'dotify.hyphenator.impl', version:'4.0.0'
+	runtime group: group, name:'dotify.formatter.impl', version:'4.0.0'
+	runtime group: group, name:'dotify.text.impl', version:'4.0.0'
+	runtime group: group, name:'dotify.translator.impl', version:'4.0.0'
+	runtime ('org.daisy.dotify:dotify.task.impl:4.0.0') {
 		exclude module: 'Saxon-HE'
 	}
 	

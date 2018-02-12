@@ -1,11 +1,9 @@
 package org.daisy.dotify.devtools.gui;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.function.Supplier;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
@@ -14,15 +12,22 @@ import org.daisy.braille.utils.api.paper.PaperCatalog;
 import org.daisy.braille.utils.api.paper.PaperCatalogService;
 import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.braille.utils.api.table.TableCatalogService;
+import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.api.validator.ValidatorFactoryService;
 import org.daisy.dotify.api.engine.FormatterEngineFactoryService;
+import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMaker;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMakerService;
-import org.daisy.dotify.api.identity.IdentityProviderService;
 import org.daisy.dotify.api.obfl.ExpressionFactory;
-import org.daisy.dotify.api.tasks.TaskSystemFactoryMakerService;
+import org.daisy.dotify.api.text.Integer2TextFactoryMaker;
 import org.daisy.dotify.api.text.Integer2TextFactoryMakerService;
+import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMaker;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;
+import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMaker;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMakerService;
+import org.daisy.streamline.api.identity.IdentityProvider;
+import org.daisy.streamline.api.identity.IdentityProviderService;
+import org.daisy.streamline.api.tasks.TaskSystemFactoryMaker;
+import org.daisy.streamline.api.tasks.TaskSystemFactoryMakerService;
 
 public class SpiFactoryContext implements FactoryContext {
 	private static final Logger logger = Logger.getLogger(SpiFactoryContext.class.getCanonicalName());
@@ -75,28 +80,28 @@ public class SpiFactoryContext implements FactoryContext {
 	public BrailleTranslatorFactoryMakerService getBrailleTranslatorFactoryMakerService() {
 		return getService(
 				BrailleTranslatorFactoryMakerService.class,
-				()->invokeStatic("org.daisy.dotify.consumer.translator.BrailleTranslatorFactoryMaker", "newInstance"));
+				()->BrailleTranslatorFactoryMaker.newInstance());
 	}
 
 	@Override
 	public ValidatorFactoryService getValidatorFactoryService() {
 		return getService(
 				ValidatorFactoryService.class,
-				()->invokeStatic("org.daisy.braille.utils.api.validator.ValidatorFactory", "newInstance"));
+				()->ValidatorFactory.newInstance());
 	}
 
 	@Override
 	public Integer2TextFactoryMakerService getInteger2TextFactoryMakerService() {
 		return getService(
 				Integer2TextFactoryMakerService.class,
-				()->invokeStatic("org.daisy.dotify.consumer.text.Integer2TextFactoryMaker", "newInstance"));
+				()->Integer2TextFactoryMaker.newInstance());
 	}
 
 	@Override
 	public HyphenatorFactoryMakerService getHyphenatorFactoryMakerService() {
 		return getService(
 				HyphenatorFactoryMakerService.class,
-				()->invokeStatic("org.daisy.dotify.consumer.hyphenator.HyphenatorFactoryMaker", "newInstance"));
+				()->HyphenatorFactoryMaker.newInstance());
 	}
 
 	@Override
@@ -125,34 +130,21 @@ public class SpiFactoryContext implements FactoryContext {
 	public TaskSystemFactoryMakerService getTaskSystemFactoryMakerService() {
 		return getService(
 				TaskSystemFactoryMakerService.class,
-				()->invokeStatic("org.daisy.dotify.consumer.tasks.TaskSystemFactoryMaker", "newInstance"));
+				()->TaskSystemFactoryMaker.newInstance());
 	}
 
 	@Override
 	public IdentityProviderService getIdentityProviderService() {
 		return getService(
 				IdentityProviderService.class,
-				()->invokeStatic("org.daisy.dotify.consumer.identity.IdentityProvider", "newInstance"));
+				()->IdentityProvider.newInstance());
 	}
 
 	@Override
 	public PagedMediaWriterFactoryMakerService getPagedMediaWriterFactoryService() {
 		return getService(
 				PagedMediaWriterFactoryMakerService.class, 
-				()->invokeStatic("org.daisy.dotify.consumer.writer.PagedMediaWriterFactoryMaker", "newInstance"));
-	}
-
-	@SuppressWarnings("unchecked")
-	private static <T> T invokeStatic(String clazz, String method) {
-		T instance = null;
-		try {
-			Class<?> cls = Class.forName(clazz);
-			Method m = cls.getMethod(method);
-			instance = (T)m.invoke(null);
-		} catch (Exception e) {
-			logger.log(Level.WARNING, "Failed to create instance.", e);
-		}
-		return instance;
+				()->PagedMediaWriterFactoryMaker.newInstance());
 	}
 
 	@Override

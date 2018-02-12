@@ -16,12 +16,12 @@ import javax.swing.JTextArea;
 import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.daisy.dotify.api.identity.IdentityProviderService;
-import org.daisy.dotify.api.tasks.AnnotatedFile;
-import org.daisy.dotify.api.tasks.CompiledTaskSystem;
-import org.daisy.dotify.api.tasks.TaskSystem;
-import org.daisy.dotify.api.tasks.TaskSystemFactoryMakerService;
-import org.daisy.dotify.tasks.runner.TaskRunner;
+import org.daisy.streamline.api.identity.IdentityProviderService;
+import org.daisy.streamline.api.media.AnnotatedFile;
+import org.daisy.streamline.api.tasks.CompiledTaskSystem;
+import org.daisy.streamline.api.tasks.TaskSystem;
+import org.daisy.streamline.api.tasks.TaskSystemFactoryMakerService;
+import org.daisy.streamline.engine.TaskRunner;
 
 public class TaskSystemPanel extends MyPanel {
 	/**
