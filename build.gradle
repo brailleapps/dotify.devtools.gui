@@ -1,9 +1,9 @@
+plugins {
+	id 'org.dm.bundle' version '0.10.0'
+}
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'distribution'
-
-//custom plugins
-apply plugin: "org.dm.bundle"
 
 //mainClassName = "org.daisy.dotify.devtools.osgi.OSGiLauncher"
 //startScripts.applicationName = 'devtoolsgui'
@@ -89,14 +89,6 @@ dependencies {
 	runtime('org.osgi:org.osgi.enterprise:4.2.0')
 	launcher('org.daisy.dotify:osgi-launcher:0.1.0-SNAPSHOT')
 	launcher("org.apache.felix:org.apache.felix.framework:4.4.1")
-}
-
-buildscript {
-    repositories {
-    	mavenCentral()
-    	mavenLocal()
-    }
-    dependencies { classpath group: "org.dm.gradle", name: "gradle-bundle-plugin", version: "0.8.5" }
 }
 
 task runOSGi(type: JavaExec, dependsOn: 'installDist') {
