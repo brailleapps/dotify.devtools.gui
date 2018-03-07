@@ -90,8 +90,10 @@ clean.doFirst {
 
 bundle {
     instructions << [
-     	//must use file() to resolve against the build.gradle in Eclipse
-        "-include": file('bnd.bnd'),
+		'-sources': 'true',
+		'Private-Package': 'org.daisy.dotify.devtools.gui',
+		'Service-Component': '*',
+		'Bundle-Activator': 'org.daisy.dotify.devtools.gui.GuiActivator'	
     ]
 }
 
