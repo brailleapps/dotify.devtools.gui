@@ -15,24 +15,19 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 group = "org.daisy.dotify"
-version = "1.0-SNAPSHOT"
+version = "1.0.0-SNAPSHOT"
 
 sourceSets {
 	main {
-		java {
-			srcDir 'src'
-		}
-		resources {
-			srcDir 'src'
-		}
+		java { srcDir 'src' exclude '**/resource-files/**/*'}
+		resources { srcDir 'src' include '**/resource-files/**/*'}
 	}
 	test {
-		java {
-			srcDir 'test'
-		}
-		resources {
-			srcDir 'test'
-		}
+		java { srcDir 'test' exclude '**/resource-files/**/*'}
+		resources { srcDir 'test' include '**/resource-files/**/*'} 
+	}
+	all {
+		tasks[processResourcesTaskName].includeEmptyDirs = false
 	}
 }
 
@@ -40,17 +35,6 @@ configurations {
 	launcher
 }
 
-jar {
-	doFirst {
-		manifest {
-	    	attributes ('Built-By': '',				//'${user.name}'
-    		'Built-On': new Date(),					//'${ISO-TODAY}'
-			)
-		}
-	}
-	from sourceSets.main.allJava
-	baseName = 'devtools.gui'
-}
 
 repositories {
     mavenCentral()
