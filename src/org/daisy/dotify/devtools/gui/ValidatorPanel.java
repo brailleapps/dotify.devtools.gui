@@ -8,8 +8,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
 import java.net.MalformedURLException;
 
 import javax.swing.JButton;
@@ -20,10 +18,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
-import org.daisy.braille.utils.api.validator.Validator;
-import org.daisy.braille.utils.api.validator.ValidatorFactoryService;
 import org.daisy.braille.utils.pef.PEFBook;
-import org.daisy.braille.utils.pef.PEFValidator;
+import org.daisy.streamline.api.validity.ValidationReport;
+import org.daisy.streamline.api.validity.Validator;
+import org.daisy.streamline.api.validity.ValidatorFactoryMakerService;
+import org.daisy.streamline.api.validity.ValidatorMessage;
 import org.xml.sax.SAXException;
 
 public class ValidatorPanel extends MyPanel {
@@ -76,7 +75,7 @@ public class ValidatorPanel extends MyPanel {
 
 	@Override
 	protected void updateResult() {
-		ValidatorFactoryService t = context.getValidatorFactoryService();
+		ValidatorFactoryMakerService t = context.getValidatorFactoryService();
 		if (t == null) {
 			outputField.setText("No formatter detected");
 		} else if (input==null) {
@@ -87,16 +86,12 @@ public class ValidatorPanel extends MyPanel {
 		} else {
 			try {
 				Validator e = t.newValidator("application/x-pef+xml");
-				e.setFeature(PEFValidator.FEATURE_MODE, PEFValidator.Mode.FULL_MODE);
-				boolean valid = e.validate(input.toURI().toURL());
+				ValidationReport valid = e.validate(input.toURI().toURL());
 				outputField.setText("Done! " + input+"\n");
-				LineNumberReader ln = new LineNumberReader(new InputStreamReader(e.getReportStream()));
-				String line;
-				while ((line=ln.readLine())!=null) {
+				for (ValidatorMessage line : valid.getMessages()) {
 					outputField.append(line+"\n");
 				}
-				ln.close();
-				if (valid) {
+				if (valid.isValid()) {
 					outputField.append("\n --- Info ---\n");
 					try {
 						PEFBook p = PEFBook.load(input.toURI());

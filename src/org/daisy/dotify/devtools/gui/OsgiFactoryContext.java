@@ -6,7 +6,6 @@ import java.util.Map;
 import org.daisy.braille.utils.api.embosser.EmbosserCatalogService;
 import org.daisy.braille.utils.api.paper.PaperCatalogService;
 import org.daisy.braille.utils.api.table.TableCatalogService;
-import org.daisy.braille.utils.api.validator.ValidatorFactoryService;
 import org.daisy.dotify.api.engine.FormatterEngineFactoryService;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMakerService;
 import org.daisy.dotify.api.obfl.ExpressionFactory;
@@ -15,6 +14,7 @@ import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMakerService;
 import org.daisy.streamline.api.identity.IdentityProviderService;
 import org.daisy.streamline.api.tasks.TaskSystemFactoryMakerService;
+import org.daisy.streamline.api.validity.ValidatorFactoryMakerService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -78,7 +78,7 @@ public class OsgiFactoryContext implements FactoryContext {
 	}
 
 	@Override
-	public ValidatorFactoryService getValidatorFactoryService() {
+	public ValidatorFactoryMakerService getValidatorFactoryService() {
 		return getTracker(ValidatorTracker.class).get();
 	}
 

@@ -12,8 +12,6 @@ import org.daisy.braille.utils.api.paper.PaperCatalog;
 import org.daisy.braille.utils.api.paper.PaperCatalogService;
 import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.braille.utils.api.table.TableCatalogService;
-import org.daisy.braille.utils.api.validator.ValidatorFactory;
-import org.daisy.braille.utils.api.validator.ValidatorFactoryService;
 import org.daisy.dotify.api.engine.FormatterEngineFactoryService;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMaker;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMakerService;
@@ -28,6 +26,8 @@ import org.daisy.streamline.api.identity.IdentityProvider;
 import org.daisy.streamline.api.identity.IdentityProviderService;
 import org.daisy.streamline.api.tasks.TaskSystemFactoryMaker;
 import org.daisy.streamline.api.tasks.TaskSystemFactoryMakerService;
+import org.daisy.streamline.api.validity.ValidatorFactoryMaker;
+import org.daisy.streamline.api.validity.ValidatorFactoryMakerService;
 
 public class SpiFactoryContext implements FactoryContext {
 	private static final Logger logger = Logger.getLogger(SpiFactoryContext.class.getCanonicalName());
@@ -84,10 +84,10 @@ public class SpiFactoryContext implements FactoryContext {
 	}
 
 	@Override
-	public ValidatorFactoryService getValidatorFactoryService() {
+	public ValidatorFactoryMakerService getValidatorFactoryService() {
 		return getService(
-				ValidatorFactoryService.class,
-				()->ValidatorFactory.newInstance());
+				ValidatorFactoryMakerService.class,
+				()->ValidatorFactoryMaker.newInstance());
 	}
 
 	@Override

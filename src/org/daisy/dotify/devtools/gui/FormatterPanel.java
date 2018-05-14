@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import javax.swing.JButton;
@@ -19,11 +18,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.daisy.dotify.api.engine.FormatterEngine;
 import org.daisy.dotify.api.engine.FormatterEngineFactoryService;
-import org.daisy.dotify.api.engine.LayoutEngineException;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactory;
 import org.daisy.dotify.api.writer.MediaTypes;
 import org.daisy.dotify.api.writer.PagedMediaWriter;
-import org.daisy.dotify.api.writer.PagedMediaWriterConfigurationException;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMakerService;
 
 public class FormatterPanel extends MyPanel {

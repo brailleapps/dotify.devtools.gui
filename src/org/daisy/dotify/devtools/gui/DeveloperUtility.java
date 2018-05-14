@@ -2,7 +2,6 @@ package org.daisy.dotify.devtools.gui;
 
 import java.awt.event.KeyEvent;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;

@@ -8,7 +8,6 @@ import org.daisy.braille.utils.api.paper.PaperCatalogService;
 import org.daisy.braille.utils.api.table.BrailleConverter;
 import org.daisy.braille.utils.api.table.Table;
 import org.daisy.braille.utils.api.table.TableCatalogService;
-import org.daisy.braille.utils.api.validator.ValidatorFactoryService;
 import org.daisy.dotify.api.engine.FormatterEngineFactoryService;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMakerService;
 import org.daisy.dotify.api.obfl.ExpressionFactory;
@@ -17,6 +16,7 @@ import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMakerService;
 import org.daisy.streamline.api.identity.IdentityProviderService;
 import org.daisy.streamline.api.tasks.TaskSystemFactoryMakerService;
+import org.daisy.streamline.api.validity.ValidatorFactoryMakerService;
 
 public interface FactoryContext {
 
@@ -24,7 +24,7 @@ public interface FactoryContext {
 	public PaperCatalogService getPaperCatalogService();
 	public TableCatalogService getTableCatalogService();
 	public BrailleTranslatorFactoryMakerService getBrailleTranslatorFactoryMakerService();
-	public ValidatorFactoryService getValidatorFactoryService();
+	public ValidatorFactoryMakerService getValidatorFactoryService();
 	public Integer2TextFactoryMakerService getInteger2TextFactoryMakerService();
 	public HyphenatorFactoryMakerService getHyphenatorFactoryMakerService();
 	public ExpressionFactory getExpressionFactory();
