@@ -93,7 +93,8 @@ bundle {
 		'-sources': 'true',
 		'Private-Package': 'org.daisy.dotify.devtools.gui',
 		'Service-Component': '*',
-		'Bundle-Activator': 'org.daisy.dotify.devtools.gui.GuiActivator'	
+		'Bundle-Activator': 'org.daisy.dotify.devtools.gui.GuiActivator',
+		'Include-Resource': 'LICENSE, NOTICE'	
     ]
 }
 

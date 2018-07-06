@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/brailleapps/dotify.devtools.gui.svg?branch=master)](https://travis-ci.org/brailleapps/dotify.devtools.gui)
 [![Type](https://img.shields.io/badge/type-application-blue.svg)](https://github.com/brailleapps/wiki/wiki/Types)
+[![License: LGPL v2.1](https://img.shields.io/badge/License-LGPL%20v2%2E1%20%28or%20later%29-blue.svg)](https://www.gnu.org/licenses/lgpl-2.1)
 
 # dotify.devtools.gui #
 The dotify.devtools.gui project in the code repository contains a GUI for testing various Dotify components in both an OSGi and an SPI environment.
