@@ -1,9 +1,9 @@
 plugins {
+	id 'java'
+	id 'maven'
+	id 'distribution'
 	id 'org.dm.bundle' version '0.10.0'
 }
-apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'distribution'
 
 //mainClassName = "org.daisy.dotify.devtools.osgi.OSGiLauncher"
 //startScripts.applicationName = 'devtoolsgui'
