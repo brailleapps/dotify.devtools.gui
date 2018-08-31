@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import org.daisy.braille.utils.api.embosser.Embosser;
 import org.daisy.braille.utils.api.embosser.EmbosserCatalogService;
 import org.daisy.braille.utils.api.factory.FactoryProperties;
-import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator;
 import org.daisy.braille.utils.api.paper.Paper;
 import org.daisy.braille.utils.api.paper.PaperCatalogService;
 import org.daisy.braille.utils.api.table.TableCatalogService;
@@ -100,8 +99,8 @@ public class EmbossPanel extends MyPanel {
 		eoptions.removeAllItems();
 		EmbosserCatalogService tt = context.getEmbosserCatalogService();
 		if (tt != null) {
-			ArrayList<FactoryProperties> sorted = new ArrayList<FactoryProperties>(tt.list());
-			Collections.sort(sorted, new FactoryPropertiesComparator());
+			ArrayList<FactoryProperties> sorted = new ArrayList<FactoryProperties>(tt.listEmbossers());
+			Collections.sort(sorted, FactoryProperties.newComparatorBuilder().build());
 			for (FactoryProperties p : sorted) {
 				eoptions.addItem(new FactoryPropertiesItem(p));
 			}
@@ -127,7 +126,7 @@ public class EmbossPanel extends MyPanel {
 			} else {
 				sorted = new ArrayList<FactoryProperties>(tt.list());
 			}
-			Collections.sort(sorted, new FactoryPropertiesComparator());
+			Collections.sort(sorted, FactoryProperties.newComparatorBuilder().build());
 			for (FactoryProperties p : sorted) {
 				toptions.addItem(new FactoryPropertiesItem(p));
 			}
@@ -146,7 +145,7 @@ public class EmbossPanel extends MyPanel {
 		PaperCatalogService tt = context.getPaperCatalogService();
 		if (tt != null) {
 			ArrayList<Paper> sorted = new ArrayList<Paper>(tt.list());
-			Collections.sort(sorted, new FactoryPropertiesComparator());
+			Collections.sort(sorted, FactoryProperties.newComparatorBuilder().build());
 			for (Paper p : sorted) {
 				if (embosser==null || embosser.supportsPaper(p)) {
 					poptions.addItem(new FactoryPropertiesItem(p));

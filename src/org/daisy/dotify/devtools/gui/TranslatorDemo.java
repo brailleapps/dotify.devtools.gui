@@ -27,7 +27,6 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
 import org.daisy.braille.utils.api.factory.FactoryProperties;
-import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator;
 import org.daisy.braille.utils.api.table.BrailleConverter;
 import org.daisy.braille.utils.api.table.TableCatalogService;
 import org.daisy.dotify.api.translator.BrailleTranslator;
@@ -228,7 +227,7 @@ mainLayout.createParallelGroup(Alignment.CENTER, false)
 		if (tt != null) {
 			String def = userPrefs.get(USER_PREFS_KEY_TABLE, "");
 			ArrayList<FactoryProperties> sorted = new ArrayList<FactoryProperties>(tt.list());
-			Collections.sort(sorted, new FactoryPropertiesComparator());
+			Collections.sort(sorted, FactoryProperties.newComparatorBuilder().build());
 			int currentTable = 0;
 			int i = 0;
 			for (FactoryProperties p : sorted) {

@@ -21,7 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import org.daisy.braille.utils.api.factory.FactoryProperties;
-import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator;
 import org.daisy.braille.utils.api.table.BrailleConverter;
 import org.daisy.braille.utils.api.table.TableCatalogService;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactory;
@@ -122,7 +121,7 @@ public class TranslatorPanel extends MyPanel {
 		TableCatalogService tt = context.getTableCatalogService();
 		if (tt != null) {
 			ArrayList<FactoryProperties> sorted = new ArrayList<FactoryProperties>(tt.list());
-			Collections.sort(sorted, new FactoryPropertiesComparator());
+			Collections.sort(sorted, FactoryProperties.newComparatorBuilder().build());
 			for (FactoryProperties p : sorted) {
 				options.addItem(new FactoryPropertiesItem(p));
 			}
