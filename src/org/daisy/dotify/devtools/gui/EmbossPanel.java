@@ -11,12 +11,12 @@ import java.util.Collections;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import org.daisy.braille.utils.api.embosser.Embosser;
-import org.daisy.braille.utils.api.embosser.EmbosserCatalogService;
-import org.daisy.braille.utils.api.factory.FactoryProperties;
-import org.daisy.braille.utils.api.paper.Paper;
-import org.daisy.braille.utils.api.paper.PaperCatalogService;
-import org.daisy.braille.utils.api.table.TableCatalogService;
+import org.daisy.dotify.api.embosser.Embosser;
+import org.daisy.dotify.api.embosser.EmbosserCatalogService;
+import org.daisy.dotify.api.factory.FactoryProperties;
+import org.daisy.dotify.api.paper.Paper;
+import org.daisy.dotify.api.paper.PaperCatalogService;
+import org.daisy.dotify.api.table.TableCatalogService;
 
 public class EmbossPanel extends MyPanel {
 	/**

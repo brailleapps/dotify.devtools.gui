@@ -1,6 +1,6 @@
 package org.daisy.dotify.devtools.gui;
 
-import org.daisy.braille.utils.api.paper.PaperCatalogService;
+import org.daisy.dotify.api.paper.PaperCatalogService;
 import org.osgi.framework.BundleContext;
 
 public class PaperCatalogTracker extends MyTracker<PaperCatalogService> {

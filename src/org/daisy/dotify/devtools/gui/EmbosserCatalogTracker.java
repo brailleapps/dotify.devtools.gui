@@ -1,6 +1,6 @@
 package org.daisy.dotify.devtools.gui;
 
-import org.daisy.braille.utils.api.embosser.EmbosserCatalogService;
+import org.daisy.dotify.api.embosser.EmbosserCatalogService;
 import org.osgi.framework.BundleContext;
 
 public class EmbosserCatalogTracker extends MyTracker<EmbosserCatalogService> {

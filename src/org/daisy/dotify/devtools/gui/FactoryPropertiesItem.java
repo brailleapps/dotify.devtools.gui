@@ -1,6 +1,6 @@
 package org.daisy.dotify.devtools.gui;
 
-import org.daisy.braille.utils.api.factory.FactoryProperties;
+import org.daisy.dotify.api.factory.FactoryProperties;
 
 class FactoryPropertiesItem {
 	private final FactoryProperties factoryProperties;

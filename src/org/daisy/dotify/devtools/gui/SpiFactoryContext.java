@@ -6,12 +6,12 @@ import java.util.ServiceLoader;
 import java.util.function.Supplier;
 import java.util.logging.Logger;
 
-import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
-import org.daisy.braille.utils.api.embosser.EmbosserCatalogService;
-import org.daisy.braille.utils.api.paper.PaperCatalog;
-import org.daisy.braille.utils.api.paper.PaperCatalogService;
-import org.daisy.braille.utils.api.table.TableCatalog;
-import org.daisy.braille.utils.api.table.TableCatalogService;
+import org.daisy.dotify.api.embosser.EmbosserCatalog;
+import org.daisy.dotify.api.embosser.EmbosserCatalogService;
+import org.daisy.dotify.api.paper.PaperCatalog;
+import org.daisy.dotify.api.paper.PaperCatalogService;
+import org.daisy.dotify.api.table.TableCatalog;
+import org.daisy.dotify.api.table.TableCatalogService;
 import org.daisy.dotify.api.engine.FormatterEngineFactoryService;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMaker;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMakerService;
