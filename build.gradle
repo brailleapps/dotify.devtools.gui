@@ -1,9 +1,20 @@
+// For bnd
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.3.0'
+	}
+}
+
 plugins {
 	id 'java'
 	id 'maven'
 	id 'distribution'
-	id 'org.dm.bundle' version '0.10.0'
 }
+
+apply plugin: 'biz.aQute.bnd.builder'
 
 //mainClassName = "org.daisy.dotify.devtools.osgi.OSGiLauncher"
 //startScripts.applicationName = 'devtoolsgui'
@@ -87,14 +98,18 @@ clean.doFirst {
 	delete 'felix-cache'
 }
 
-bundle {
-    instructions << [
-		'-sources': 'true',
-		'Private-Package': 'org.daisy.dotify.devtools.gui',
-		'Service-Component': '*',
-		'Bundle-Activator': 'org.daisy.dotify.devtools.gui.GuiActivator',
-		'Include-Resource': 'LICENSE, NOTICE'	
-    ]
+jar {
+	manifest {
+		attributes(
+			'-sources': 'true',
+			//'Private-Package': 'org.daisy.dotify.devtools.gui',
+			'Service-Component': '*',
+			'Bundle-Name': 'org.daisy.dotify.devtools.gui',
+			'Bundle-SymbolicName': 'org.daisy.dotify.devtools.gui',
+			'Bundle-Activator': 'org.daisy.dotify.devtools.gui.GuiActivator',
+			'Include-Resource': 'LICENSE, NOTICE'	
+		)
+	}
 }
 
 installDist.dependsOn('jar')
