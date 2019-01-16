@@ -4,7 +4,7 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.3.0'
+		classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:4.1.0'
 	}
 }
 
@@ -103,7 +103,6 @@ jar {
 		attributes(
 			'-sources': 'true',
 			//'Private-Package': 'org.daisy.dotify.devtools.gui',
-			'Service-Component': '*',
 			'Bundle-Name': 'org.daisy.dotify.devtools.gui',
 			'Bundle-SymbolicName': 'org.daisy.dotify.devtools.gui',
 			'Bundle-Activator': 'org.daisy.dotify.devtools.gui.GuiActivator',
