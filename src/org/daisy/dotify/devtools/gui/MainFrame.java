@@ -73,10 +73,7 @@ public class MainFrame extends JFrame {
 
 		});
 		pane = new JTabbedPane();
-		JComponent panel11 = new CodePointUtility();
-		pane.addTab("Code Points", null, panel11, "Convert characters to codepoints");
-		pane.setMnemonicAt(0, KeyEvent.VK_1);
-		
+
 		ExpressionPanel panel7 = new ExpressionPanel(context);
 		
 		addPanel("Numbers", pane, panel1);
