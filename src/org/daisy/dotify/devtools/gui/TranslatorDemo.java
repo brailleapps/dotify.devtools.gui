@@ -30,12 +30,13 @@ import org.daisy.dotify.api.factory.FactoryProperties;
 import org.daisy.dotify.api.table.BrailleConverter;
 import org.daisy.dotify.api.table.TableCatalogService;
 import org.daisy.dotify.api.translator.BrailleTranslator;
-import org.daisy.dotify.api.translator.BrailleTranslatorFactory;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;
 import org.daisy.dotify.api.translator.BrailleTranslatorResult;
 import org.daisy.dotify.api.translator.Translatable;
 import org.daisy.dotify.api.translator.TranslationException;
 import org.daisy.dotify.api.translator.TranslatorConfigurationException;
+import org.daisy.dotify.api.translator.TranslatorMode;
+import org.daisy.dotify.api.translator.TranslatorType;
 
 
 public class TranslatorDemo extends MyPanel {
@@ -299,7 +300,7 @@ mainLayout.createParallelGroup(Alignment.CENTER, false)
 			} else if (!textPanel.getText().equals("")) {
 				BrailleTranslator t;
 				try {
-					t = ts.newTranslator(loc, BrailleTranslatorFactory.MODE_UNCONTRACTED);
+					t = ts.newTranslator(loc, TranslatorMode.withType(TranslatorType.UNCONTRACTED).toString());
 					BrailleConverter conv = context.newBrailleConverter(convId);
 					BrailleTranslatorResult btr = t.translate(Translatable.text(textPanel.getText()).hyphenate(hyphenate.isSelected()).build());
 					while (btr.hasNext()) {

@@ -18,7 +18,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.daisy.dotify.api.engine.FormatterEngine;
 import org.daisy.dotify.api.engine.FormatterEngineFactoryService;
-import org.daisy.dotify.api.translator.BrailleTranslatorFactory;
+import org.daisy.dotify.api.translator.TranslatorMode;
+import org.daisy.dotify.api.translator.TranslatorType;
 import org.daisy.dotify.api.writer.MediaTypes;
 import org.daisy.dotify.api.writer.PagedMediaWriter;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMakerService;
@@ -96,7 +97,7 @@ public class FormatterPanel extends MyPanel {
 						@Override
 						protected Void doInBackground() throws Exception {
 							PagedMediaWriter pw = w.newPagedMediaWriter(MediaTypes.PEF_MEDIA_TYPE);
-							FormatterEngine e = t.newFormatterEngine(getTargetLocale(), BrailleTranslatorFactory.MODE_UNCONTRACTED, pw);
+							FormatterEngine e = t.newFormatterEngine(getTargetLocale(), TranslatorMode.withType(TranslatorType.UNCONTRACTED).toString(), pw);
 							out = new File(input.getParentFile(), input.getName()+".pef");
 						
 							e.convert(new FileInputStream(input), new FileOutputStream(out));

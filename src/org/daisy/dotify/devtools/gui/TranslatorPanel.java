@@ -23,12 +23,13 @@ import javax.swing.JTextArea;
 import org.daisy.dotify.api.factory.FactoryProperties;
 import org.daisy.dotify.api.table.BrailleConverter;
 import org.daisy.dotify.api.table.TableCatalogService;
-import org.daisy.dotify.api.translator.BrailleTranslatorFactory;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;
 import org.daisy.dotify.api.translator.BrailleTranslatorResult;
 import org.daisy.dotify.api.translator.Translatable;
 import org.daisy.dotify.api.translator.TranslationException;
 import org.daisy.dotify.api.translator.TranslatorConfigurationException;
+import org.daisy.dotify.api.translator.TranslatorMode;
+import org.daisy.dotify.api.translator.TranslatorType;
 
 public class TranslatorPanel extends MyPanel {
 	/**
@@ -149,7 +150,7 @@ public class TranslatorPanel extends MyPanel {
 				} else {
 					try {
 						outputField.setText("");
-						BrailleTranslatorResult btr = t.newTranslator(loc, BrailleTranslatorFactory.MODE_UNCONTRACTED).translate(Translatable.text(textField.getText()).build());
+						BrailleTranslatorResult btr = t.newTranslator(loc, TranslatorMode.withType(TranslatorType.UNCONTRACTED).toString()).translate(Translatable.text(textField.getText()).build());
 						while (btr.hasNext()) {
 							String str = btr.nextTranslatedRow(30, true);
 							if (bc!=null) {
